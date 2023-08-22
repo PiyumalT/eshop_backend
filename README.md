@@ -40,22 +40,28 @@ CONNECTION_STRING = (mongodb connection)
 <h2>E-commerce Backend Features</h2>
 
 <h3>1. Product Management</h3>
--<p>Add, update, and delete products.</p>
--<p>Include product details like name, description, price, and images.</p>
+
+    Add, update, and delete products.
+    Include product details like name, description, price, and images.
 
 <h3>2. Category Management</h3>
--<p>Create, modify, and delete product categories.</p>
--<p>Assign products to specific categories.</p>
+
+    Create, modify, and delete product categories.
+    Assign products to specific categories.
 
 <h3>3. User Management</h3>
--<p>Manage user accounts, including registration and login.</p>
--<p>Admin can view and edit user details.</p>
+
+    Manage user accounts, including registration and login.
+    Admin can view and edit user details.
 
 <h3>4. Order Processing</h3>
--<p>Handle order creation and tracking.</p>
--<p>Admin can view and manage orders.</p>
+
+    Handle order creation and tracking.
+    Admin can view and manage orders.
 
 <h3>5. Authentication and Security</h3>
--<p>Implement user authentication and authorization.</p>
--<p>Protect sensitive data and user accounts.</p>
 
+    Implement user authentication and authorization.
+    Protect sensitive data and user accounts.
+
+<h2>Enjoy!</h2>
