@@ -31,29 +31,31 @@
 
 <h2>example .env file</h2>
 <p> 
+<pre><code>
 API_URL = /api/v1
 CONNECTION_STRING = (mongodb connection)
+</code></pre>
 </p>
 
 <h2>E-commerce Backend Features</h2>
 
 <h3>1. Product Management</h3>
-<p>Add, update, and delete products.</p>
-<p>Include product details like name, description, price, and images.</p>
+-<p>Add, update, and delete products.</p>
+-<p>Include product details like name, description, price, and images.</p>
 
 <h3>2. Category Management</h3>
-<p>Create, modify, and delete product categories.</p>
-<p>Assign products to specific categories.</p>
+-<p>Create, modify, and delete product categories.</p>
+-<p>Assign products to specific categories.</p>
 
 <h3>3. User Management</h3>
-<p>Manage user accounts, including registration and login.</p>
-<p>Admin can view and edit user details.</p>
+-<p>Manage user accounts, including registration and login.</p>
+-<p>Admin can view and edit user details.</p>
 
 <h3>4. Order Processing</h3>
-<p>Handle order creation and tracking.</p>
-<p>Admin can view and manage orders.</p>
+-<p>Handle order creation and tracking.</p>
+-<p>Admin can view and manage orders.</p>
 
 <h3>5. Authentication and Security</h3>
-<p>Implement user authentication and authorization.</p>
-<p>Protect sensitive data and user accounts.</p>
+-<p>Implement user authentication and authorization.</p>
+-<p>Protect sensitive data and user accounts.</p>
 
