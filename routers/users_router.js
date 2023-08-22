@@ -1,6 +1,10 @@
 const {User} = require('../models/user');
 const express = require('express'); 
 const router = express.Router();
+const mongoose = require('mongoose');
+const {ShippingAddress} = require('../models/shippingAddress');
+const bycrypt = require('bcryptjs');
+
 
 // Get all users
 router.get(`/`, async (req, res) =>{
@@ -50,7 +54,7 @@ router.post('/', async (req, res) =>{
         const user = new User({
             name: req.body.name,
             email: req.body.email,
-            passwordHash: req.body.passwordHash,
+            passwordHash:bycrypt.hashSync(req.body.passwordHash,8),
             phone: req.body.phone,
             isAdmin: req.body.isAdmin,
             defaultShippingAddress: req.body.defaultShippingAddress,
