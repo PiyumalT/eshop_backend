@@ -24,10 +24,12 @@ const api = process.env.API_URL;
 const genaral_router = require('./routers/genaral_router');
 const products_router = require('./routers/products_router');
 const category_router = require('./routers/category_router');
+const users_router = require('./routers/users_router');
 
 app.use(`${api}/products`, products_router);
 app.use(`${api}/`, genaral_router);
 app.use(`${api}/category`, category_router);
+app.use(`${api}/users`, users_router);
 
 
 //mongo database connection
