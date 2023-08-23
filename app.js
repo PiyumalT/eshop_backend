@@ -3,6 +3,9 @@ const app = express();
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const mongoose = require("mongoose");
+const { expressjwt: jwt } = require("express-jwt");
+const errorHandler = require('./helpers/error-handler');
+const authJwt = require('./helpers/jwt'); 
 
 //
 require('dotenv/config');
@@ -13,12 +16,16 @@ const crossOrigin = require('cors');
 app.use(crossOrigin());
 app.options('*', crossOrigin());
 
+//environment variable
+const api = process.env.API_URL;
+
 //middleware
 app.use(bodyParser.json());
 app.use(morgan('tiny'));
+// app.use(api, jwt({ secret: secret, algorithms: ["HS256"]}));
+app.use(authJwt());
+app.use(errorHandler);
 
-//environment variable
-const api = process.env.API_URL;
 
 //routers
 const genaral_router = require('./routers/genaral_router');
