@@ -22,9 +22,10 @@ const api = process.env.API_URL;
 //middleware
 app.use(bodyParser.json());
 app.use(morgan('tiny'));
-// app.use(api, jwt({ secret: secret, algorithms: ["HS256"]}));
-app.use(authJwt());
+app.use(authJwt());  // enable this line if you want to use jwt
 app.use(errorHandler);
+
+// app.use(api, jwt({ secret: secret, algorithms: ["HS256"]}));
 
 
 //routers
@@ -33,12 +34,14 @@ const products_router = require('./routers/products_router');
 const category_router = require('./routers/category_router');
 const users_router = require('./routers/users_router');
 const shippingAddress_router = require('./routers/shippingAddress_router');
+const orders_router = require('./routers/orders_router');
 
 app.use(`${api}/products`, products_router);
 app.use(`${api}/`, genaral_router);
 app.use(`${api}/category`, category_router);
 app.use(`${api}/users`, users_router);
 app.use(`${api}/shippingAddress`, shippingAddress_router);
+app.use(`${api}/orders`, orders_router);
 
 
 //mongo database connection

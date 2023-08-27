@@ -41,4 +41,3 @@ const shippingAddressSchema = mongoose.Schema({
 })
 
 exports.ShippingAddress = mongoose.model('ShippingAddress', shippingAddressSchema);
-exports.shippingAddressSchema = shippingAddressSchema;
