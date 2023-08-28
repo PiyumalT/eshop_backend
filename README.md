@@ -26,22 +26,18 @@
     <li>Install the required dependencies:
         <pre><code>npm install</code></pre>
     </li>
-    <li>Create a <code>.env</code> file in the root directory and configure your environment variables. You can use the provided below as a template.</li>
-    <p> 
-    <pre><code>
-    API_URL = /api/v1
-    CONNECTION_STRING = (mongodb connection)
+     <li>Create a <code>.env</code> file in the root directory and configure your environment variables. You can use the provided below as a template.:
+        <pre><code>
+API_URL = /api/v1
+CONNECTION_STRING = (mongodb connection)
     </code></pre>
-    </p>
+    </li>
 </ol>
 
 <h2>Usage</h2>
 <p>To start the server using Nodemon, run the following command:</p>
 <pre><code>npm start</code></pre>
 <p>The server will start and listen for incoming requests at the specified port.</p>
-
-<h2>example .env file</h2>
-
 
 <h2>E-commerce Backend Features</h2>
 
