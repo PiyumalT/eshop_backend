@@ -10,6 +10,11 @@
     <li><strong>morgan:</strong> Morgan is a HTTP request logger middleware for Node.js, used to log HTTP requests and related information, which is helpful for debugging and monitoring.</li>
     <li><strong>mongoose:</strong> Mongoose is an Object Data Modeling (ODM) library for MongoDB and Node.js. It simplifies the interaction with MongoDB databases by providing a schema-based solution for modeling application data.</li>
     <li><strong>cors:</strong> Cors (Cross-Origin Resource Sharing) middleware is used to enable cross-origin requests, allowing your API to be accessed by clients running on different domains.</li>
+    <li><strong>bcryptjs:</strong> Bcryptjs is used for securely hashing passwords in Node.js applications.</li>
+    <li><strong>jsonwebtoken:</strong> Jsonwebtoken generates and manages JSON Web Tokens for authentication in Node.js applications.</li>
+    <li><strong>multer:</strong> Multer is middleware that simplifies handling file uploads in Node.js applications.</li>
+
+    
 </ul>
 
 <h2>Installation</h2>
