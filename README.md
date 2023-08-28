@@ -27,6 +27,12 @@
         <pre><code>npm install</code></pre>
     </li>
     <li>Create a <code>.env</code> file in the root directory and configure your environment variables. You can use the provided below as a template.</li>
+    <p> 
+    <pre><code>
+    API_URL = /api/v1
+    CONNECTION_STRING = (mongodb connection)
+    </code></pre>
+    </p>
 </ol>
 
 <h2>Usage</h2>
@@ -35,12 +41,7 @@
 <p>The server will start and listen for incoming requests at the specified port.</p>
 
 <h2>example .env file</h2>
-<p> 
-<pre><code>
-API_URL = /api/v1
-CONNECTION_STRING = (mongodb connection)
-</code></pre>
-</p>
+
 
 <h2>E-commerce Backend Features</h2>
 
