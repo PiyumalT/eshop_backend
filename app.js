@@ -24,6 +24,7 @@ app.use(bodyParser.json());
 app.use(morgan('tiny'));
 app.use(authJwt());  // enable this line if you want to use jwt
 app.use(errorHandler);
+app.use('/public/uploads', express.static(__dirname + '/public/uploads'));
 
 // app.use(api, jwt({ secret: secret, algorithms: ["HS256"]}));
 

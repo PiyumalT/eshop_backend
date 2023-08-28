@@ -79,14 +79,20 @@ router.post(`/`, uploadOptions.single('image'), async (req, res) => {
     if(!category) {
         return res.status(400).send('Invalid Category');
     }
-    const file = req.file.filename;
+
+    //Check if the file is valid
+    const file = req.file;
+    if(!file) {
+        return res.status(400).send('No image in the request');
+    }
+    const fileName = req.file.filename;
     const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
 
     const product = new Product({
         name: req.body.name,
         description: req.body.description,
         richDescription: req.body.richDescription,
-        image: `${basePath}${file}`,
+        image: `${basePath}${fileName}`,
         brand: req.body.brand,
         price: req.body.price,
         category: req.body.category,
@@ -197,6 +203,31 @@ router.get(`/get/bycategory`,async (req, res) => {
     }
     res.send(productsList);
 });
+
+//Update the gallery images of a product
+router.put('/gallery-images/:id', uploadOptions.array('images', 10), async (req, res) => {
+    if (!mongoose.isValidObjectId(req.params.id)) {
+        return res.status(400).send('Invalid Product Id');
+    }
+
+    let imagePaths = [];
+    const files = req.files;
+    if (files) {
+        files.map(file => {
+            imagePaths.push(`${req.protocol}://${req.get('host')}/public/uploads/${file.filename}`);
+        })
+    }
+
+    const product = await Product.findByIdAndUpdate(req.params.id, {
+        optinalImages: imagePaths
+    }, {new: true});
+
+    if (!product) {
+        return res.status(500).send('the gallery cannot be updated!');
+    }
+    res.send(product);
+});
+
 
 
     
