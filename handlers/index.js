@@ -1,5 +1,6 @@
 module.exports = {
     ...require('./genaral'),
+    ...require('./category'),
 }
 
 module.exports.notFound = (req, res, next) => {
