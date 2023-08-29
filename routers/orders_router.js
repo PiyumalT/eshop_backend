@@ -4,9 +4,17 @@ const router = express.Router();
 const {OrderItem} = require('../models/order-item');
 const {ShippingAddress} = require('../models/shippingAddress');
 const { Product } = require('../models/product');
+const validateUserToken = require('../helpers/jwtValidateUser');
+
+//Admin routes
 
 //get all orders
-router.get(`/`,async (req, res) => {
+router.get(`/get/`,async (req, res) => {
+    //check user level
+    const userInfo = validateUserToken(req.headers.authorization);
+    if (!(userInfo && userInfo.userRole === 'admin')) {
+        return res.status(401).send('Unauthorized request');
+    }   
     const orderList =await Order.find().populate('user', 'name').sort({'dateOrdered': -1});
     if(!orderList) {
         res.status(500).json({
@@ -16,8 +24,33 @@ router.get(`/`,async (req, res) => {
     res.send(orderList);
 });
 
+//update an order status
+router.put('/:id', async (req, res) =>{
+    
+    const order =await Order.findByIdAndUpdate(
+        req.params.id,
+        {
+            status: req.body.status,
+        },
+        {new: true}
+    )
+    if(!order){
+        res.status(500).json({
+            message: 'The order was not found',
+            success: false
+        })
+    }
+    res.send(order);
+});
+
 //get a single order by id
 router.get('/:id', async (req, res) =>{
+
+    const userInfo = validateUserToken(req.headers.authorization);
+    if (!(userInfo)){
+        return res.status(401).send('Unauthorized request');
+    }
+
     const order =await Order.findById(req.params.id)
     .populate('user', 'name')
     .populate('shippingAddress', 'fullName address city zipCode country phoneNumber')
@@ -88,23 +121,7 @@ router.post(`/`,async (req, res) => {
     }
 });
 
-//update an order status
-router.put('/:id', async (req, res) =>{
-    const order =await Order.findByIdAndUpdate(
-        req.params.id,
-        {
-            status: req.body.status,
-        },
-        {new: true}
-    )
-    if(!order){
-        res.status(500).json({
-            message: 'The order was not found',
-            success: false
-        })
-    }
-    res.send(order);
-});
+
 
 //delete an order
 router.delete('/:id', async (req, res) =>{
