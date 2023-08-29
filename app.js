@@ -7,7 +7,7 @@ const { expressjwt: jwt } = require("express-jwt");
 const errorHandler = require('./helpers/error-handler');
 const authJwt = require('./helpers/jwt'); 
 
-//
+
 require('dotenv/config');
 // require('dotenv').config();
 
@@ -65,3 +65,20 @@ app.listen(3000, () => {
     const currentTime = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
     console.log(currentTime + ' :: Server running port:3000');
 });
+
+//Node Js Backend For E-Commerce Website
+//Modifyed by : Tharindu
+//www.github.com/piyumalt
+//Last Modified Date : 2023-08-30
+//Version : 1.0.0
+//For more information visit : www.github.com/piyumalt , find this repository
+//And read the README.md file 
+//Thank you for using this repository
+//Have a nice day
+//Good Bye
+//See you again
+//Bye Bye
+//Good Bye
+//Bye Bye
+//Good Bye
+//Bye Bye
