@@ -3,36 +3,6 @@ const { Category } = require('../models/category');
 const router = express.Router(); 
 const {Product} = require('../models/product');
 const mongoose = require('mongoose');
-const multer = require('multer');
-
-const FILE_TYPE_MAP = {
-    'image/png': 'png',
-    'image/jpg': 'jpg',
-    'image/jpeg': 'jpeg'
-}
-
-//Storage for images
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        const isValid = FILE_TYPE_MAP[file.mimetype];
-        let uploadError = new Error('Invalid image type');
-        if(isValid) {
-            uploadError = null
-        }
-        cb(uploadError, 'public/uploads')
-    },
-    //Rename the file
-    // filename: function (req, file, cb) {
-    //     const fileName = file.originalname.split(' ').join('-');
-    //     cb(null, Date.now() + '-' + fileName)
-    // }
-    filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-        const extension = FILE_TYPE_MAP[file.mimetype];
-        cb(null, file.fieldname + '-' + uniqueSuffix + '.' + extension)
-    }
-})
-const uploadOptions = multer({ storage: storage })
 
 
 //Get all products
@@ -72,7 +42,7 @@ exports.getProductById = async (req, res) => {
 };
 
 //Save a product
-exports.addNewProduct = uploadOptions.single('image'), async (req, res) => {
+exports.addNewProduct = async (req, res) => {
     const category =await Category.findById(req.body.category);
     if(!category) {
         return res.status(400).send('Invalid Category');
@@ -85,6 +55,23 @@ exports.addNewProduct = uploadOptions.single('image'), async (req, res) => {
     }
     const fileName = req.file.filename;
     const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
+
+    if (!req.body.name){
+        return res.status(400).send('The name is required');
+    }
+    if (!req.body.description){
+        return res.status(400).send('The description is required');
+    }
+    if (!req.body.price){
+        return res.status(400).send('The price is required');
+    }
+    if (!req.body.countInStock){
+        return res.status(400).send('The countInStock is required');
+    }
+    if (!req.body.category){
+        return res.status(400).send('The category is required');
+    }
+    
 
     const product = new Product({
         name: req.body.name,
@@ -203,7 +190,7 @@ exports.getProductsByCategory = async (req, res) => {
 };
 
 //Update the gallery images of a product
-exports.updateGalleryImages = uploadOptions.array('images', 10), async (req, res) => {
+exports.updateGalleryImages =  async (req, res) => {
     if (!mongoose.isValidObjectId(req.params.id)) {
         return res.status(400).send('Invalid Product Id');
     }
@@ -217,7 +204,7 @@ exports.updateGalleryImages = uploadOptions.array('images', 10), async (req, res
     }
 
     const product = await Product.findByIdAndUpdate(req.params.id, {
-        optinalImages: imagePaths
+        optionalImages: imagePaths
     }, {new: true});
 
     if (!product) {

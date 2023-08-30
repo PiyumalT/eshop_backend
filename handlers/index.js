@@ -1,6 +1,10 @@
 module.exports = {
     ...require('./genaral'),
     ...require('./category'),
+    ...require('./products'),
+    ...require('./shippingAddress'),
+    ...require('./order'),
+    ...require('./user'),
 }
 
 module.exports.notFound = (req, res, next) => {

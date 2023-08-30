@@ -2,14 +2,14 @@ const express = require('express');
 const router = express.Router();
 const handle = require('../handlers/users')
 
-router.get('/', handle.allUsers)
-router.get('/:id', handle.getUserById)
-router.post('/', handle.addNewUser)
-router.post('/login', handle.loginUser)
-router.get('/get/count', handle.numberOfUsers)
-router.delete('/:id', handle.deleteUser)
-router.put('/password/:id', handle.updateUserPassword)
-router.put('/:id', handle.updateUserInfo)
-
+router.get('/', handle.allUsers)                        //Get all users
+router.get('/:id', handle.getUserById)                  //Get user by id
+router.post('/', handle.addNewUser)                     //Add new user
+router.post('/login', handle.loginUser)                 //Login user
+router.get('/get/count', handle.numberOfUsers)          //Get number of users
+router.delete('/:id', handle.deleteUser)                //Delete user
+router.put('/password/:id', handle.updateUserPassword)  //Update user password
+router.put('/:id', handle.updateUserInfo)               //Update user info
+router.get('/get/userbyemail/:email', handle.getUserByEmail) //Get user by email
 
 module.exports = router;

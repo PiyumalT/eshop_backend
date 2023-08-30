@@ -2,17 +2,17 @@ const express = require('express');
 const router = express.Router();
 const handle = require('../handlers/orders')
 
-router.get('/', handle.listOfAllOrders)
-router.get('/:id', handle.getOrderbyId)
-router.put('/:id', handle.updateOrderStatus)
-router.post('/', handle.addNewOrder)
-router.delete('/:id', handle.deleteOrder)
-router.get('/get/totalsales', handle.getTotalSales)
-router.get('/get/count', handle.numberOfOrders)
-router.get('/get/userorders/:userid', handle.showOrdersByUserId)
-router.get(`/get/userorders/count/:userid`,handle.countOrdersOfOneUser)
-router.get(`/get/ordersbystatus/:status`,handle.showOrdersByStatus)
-router.get(`/get/ordersbystatus/:status/:userid`,handle.showOrdersByStatusAndUserId)
-router.get(`/get/ordersbydaterange/:startdate/:enddate`,handle.showOrdersInDateRange)
+router.get('/', handle.listOfAllOrders)                         //Get all orders
+router.get('/:id', handle.getOrderbyId)                         //Get order by id
+router.put('/:id', handle.updateOrderStatus)                    //Update order status
+router.post('/', handle.addNewOrder)                            //Add new order
+router.delete('/:id', handle.deleteOrder)                       //Delete order
+router.get('/get/totalsales', handle.getTotalSales)             //Get total sales amount
+router.get('/get/count', handle.numberOfOrders)                 //Get number of orders
+router.get('/get/userorders/:userid', handle.showOrdersByUserId)                      //Get orders of a user
+router.get(`/get/userorders/count/:userid`,handle.countOrdersOfOneUser)               //Get number of orders of a user
+router.get(`/get/ordersbystatus/:status`,handle.showOrdersByStatus)                   //Get orders by status
+router.get(`/get/ordersbystatus/:status/:userid`,handle.showOrdersByStatusAndUserId)  //Get orders of a user by status
+router.get(`/get/ordersbydaterange/:startdate/:enddate`,handle.showOrdersInDateRange) //Get orders in a date range
 
 module.exports = router
