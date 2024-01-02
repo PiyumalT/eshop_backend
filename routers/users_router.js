@@ -4,7 +4,7 @@ const handle = require('../handlers/users')
 
 router.get('/', handle.allUsers)                        //Get all users
 router.get('/:id', handle.getUserById)                  //Get user by id
-router.post('/', handle.addNewUser)                     //Add new user
+router.post('/register', handle.addNewUser)                     //Add new user
 router.post('/login', handle.loginUser)                 //Login user
 router.get('/get/count', handle.numberOfUsers)          //Get number of users
 router.delete('/:id', handle.deleteUser)                //Delete user

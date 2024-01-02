@@ -36,6 +36,7 @@ const category_router = require('./routers/category_router');
 const users_router = require('./routers/users_router');
 const shippingAddress_router = require('./routers/shippingAddress_router');
 const orders_router = require('./routers/orders_router');
+const cart_router = require('./routers/cart_router');
 
 
 app.use(`${api}/products`, products_router);
@@ -44,6 +45,7 @@ app.use(`${api}/category`, category_router);
 app.use(`${api}/users`, users_router);
 app.use(`${api}/shippingAddress`, shippingAddress_router);
 app.use(`${api}/orders`, orders_router);
+app.use(`${api}/cart`, cart_router);
 
 
 //mongo database connection

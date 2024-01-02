@@ -31,14 +31,23 @@ exports.getProductBasicDetails = async (req, res) => {
 
 //get a product by id
 exports.getProductById = async (req, res) => {
-    const product =await Product.findById(req.params.id);
-    if(!product) {
+    try {
+        const product =await Product.findById(req.params.id);
+        if(!product) {
+            res.status(500).json({
+                success: false,
+                message: 'The product with the given ID was not found'
+            })
+        }
+        res.status(200).send(product);
+    }
+    catch(err) {
         res.status(500).json({
             success: false,
+            error: err,
             message: 'The product with the given ID was not found'
         })
     }
-    res.status(200).send(product);
 };
 
 //Save a product
@@ -174,19 +183,44 @@ exports.featuredProducts = async (req, res) => {
     res.send(products);
 };
 
-//get products by category
-exports.getProductsByCategory = async (req, res) => {
-    let filter = {};
-    if (req.query.categories) {
-        const filter = {category: req.query.categories.split(',')}
-    }
-    const productsList =await Product.find(filter).populate('category');
-    if(!productsList) {
+//Get the latest products (sort by dateCreated)
+exports.latestProducts = async (req, res) => {
+    const count = req.params.count ? req.params.count : 0;
+    const products = await Product.find().sort({dateCreated: -1}).limit(+count);
+    if(!products) {
         res.status(500).json({
             success: false
         })
     }
-    res.send(productsList);
+    res.send(products);
+};
+
+//Get products by category
+exports.getProductsByCategory = async (req, res) => {
+    try {
+        // Get category by name
+        const category = await Category.findOne({ name: { $regex: new RegExp(req.params.name, 'i') } });
+
+        // Check if the category exists
+        if (!category) {
+            return res.status(400).json({ error: 'Invalid Category' });
+        }
+
+        // Get products by category ID
+        const products = await Product.find({ category: category._id });
+
+        // Check if products are found
+        if (!products || products.length === 0) {
+            return res.status(404).json({ error: 'No products found for this category' });
+        }
+
+        // Send the products as a response
+        res.json({ success: true, products });
+    } catch (error) {
+        // Handle any unexpected errors
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 };
 
 //Update the gallery images of a product

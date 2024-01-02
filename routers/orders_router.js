@@ -2,11 +2,14 @@ const express = require('express');
 const router = express.Router();
 const handle = require('../handlers/orders')
 
-router.get('/', handle.listOfAllOrders)                         //Get all orders
+//all users
 router.get('/:id', handle.getOrderbyId)                         //Get order by id
-router.put('/:id', handle.updateOrderStatus)                    //Update order status
 router.post('/', handle.addNewOrder)                            //Add new order
 router.delete('/:id', handle.deleteOrder)                       //Delete order
+
+
+router.get('/', handle.listOfAllOrders)                         //Get all orders
+router.put('/:id', handle.updateOrderStatus)                    //Update order status
 router.get('/get/totalsales', handle.getTotalSales)             //Get total sales amount
 router.get('/get/count', handle.numberOfOrders)                 //Get number of orders
 router.get('/get/userorders/:userid', handle.showOrdersByUserId)                      //Get orders of a user

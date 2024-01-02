@@ -27,6 +27,19 @@ exports.getCategoryById = async (req, res) => {
     }
 };
 
+exports.searchCategory = async (req, res) => {
+    const category =await Category.find({name: req.params.name}); 
+    if(category) {
+        res.status(200).send(category);
+    }
+    else {
+        res.status(404).json({
+            success: false,
+            message: 'The category is not found',
+        })
+    }
+};
+
 exports.updateCategory = async (req, res) => {
     const category =await Category.findByIdAndUpdate(
         req.params.id,

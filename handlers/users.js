@@ -65,10 +65,9 @@ exports.addNewUser = async (req, res) =>{
         if(!newUser){
             return res.status(400).send('The user cannot be created');
         }
-        res.send(newUser);
+        res.send(newUser._id);
     }
     catch(err){
-        console.log(err);
         res.status(500).json({
             message: err.message,
             success: false
@@ -81,7 +80,10 @@ exports.loginUser = async (req, res) =>{
     try{
         const user = await User.findOne({email:req.body.email});
         if (!user){
-            return res.status(400).send('The user not found');
+            return res.status(400).json({
+                message: 'The user not found',
+                success: false
+            })
         }
         if (user && bycrypt.compareSync(req.body.password, user.passwordHash)){
             const token = jwt.sign(
@@ -95,7 +97,10 @@ exports.loginUser = async (req, res) =>{
             res.status(200).send({user: user.email, token: token});
         }
         else{
-            res.status(400).send('Password is wrong');
+            res.status(400).json({
+                message: 'Password is wrong',
+                success: false
+            });
         }
         // res.status(200).send(user);
     }
