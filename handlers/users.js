@@ -242,3 +242,35 @@ exports.getUserByEmail = async (req, res) =>{
     }
 };
 
+exports.checkToken = async (req, res) =>{
+    try{
+        const authorizationHeader = req.headers.authorization;
+        const token = authorizationHeader.split(' ')[1];
+        const decoded = jwt.verify(token, process.env.secret);
+        const userId = decoded.userId;
+        const expire = decoded.exp;
+
+        if (expire < Date.now()/1000){
+            return res.status(401).send('Token expired');
+        }
+
+        const user = await User.findById(userId);
+        if(!user){
+            return res.status(404).send('The user not found');
+        }
+        //send user email , id ,name and phone
+        res.send({
+            email: user.email,
+            id: user._id,
+            name: user.name,
+            phone: user.phone,
+        });
+    }
+    catch(err){
+        console.log(err);
+        res.status(500).json({
+            message: err.message,
+            success: false
+        })
+    }
+}

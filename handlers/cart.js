@@ -93,3 +93,33 @@ exports.numberOfCartItems = async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 }
+
+exports.updateCartItem = async (req, res) => {
+    //get user id from token
+    const authorizationHeader = req.headers.authorization;
+    const token = authorizationHeader.split(' ')[1];
+    const decoded = jwt.verify(token, process.env.secret);
+    const user_id = decoded.userId;
+    const cartItem_id = req.params.id;
+
+    //check if cart item exists
+    const cartItem = await Cart.findById(cartItem_id);
+    if (!cartItem) {
+        return res.status(400).send('Cart item does not exist');
+    }
+    else if (cartItem.user_id != user_id) {
+        return res.status(400).send('You are not authorized to update this cart item');
+    }
+    else {
+        const result = await Cart.findByIdAndUpdate(cartItem_id, {
+            quantity: req.body.quantity,
+        }, { new: true });
+        if (!result) {
+            return res.status(500).send('The cart item cannot be updated');
+        }
+        if (result.quantity === 0) {
+            await Cart.findByIdAndRemove(cartItem_id);
+        }
+        res.send(result);
+    }
+}
