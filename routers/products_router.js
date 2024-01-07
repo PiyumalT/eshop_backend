@@ -15,5 +15,6 @@ router.get('/get/latest/:count', handle.latestProducts)                         
 router.get(`/get/bycategory`,handle.getProductsByCategory)                      //Get products by category
 router.get(`/get/bycategory/:name`,handle.getProductsByCategory)                  //Get products by category
 router.put('/gallery-images/:id', imgeUpload.uploadOptions.array('images', 10), handle.updateGalleryImages);    //Update the optional images of a product
+router.get('/search/:name', handle.searchProducts)                               //Search products by name
 
 module.exports = router

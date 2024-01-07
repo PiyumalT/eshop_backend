@@ -58,7 +58,10 @@ mongoose.connect(process.env.CONNECTION_STRING,{
     console.log('Database Connected');
 })
 .catch((err) => {
-    console.log(err);
+    //console.log(err);
+    console.log('Database Connection Failed');
+    //stop the server if database connection failed
+    process.exit();
 })
 
 //Node server

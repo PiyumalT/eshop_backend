@@ -246,3 +246,20 @@ exports.updateGalleryImages =  async (req, res) => {
     }
     res.send(product);
 };
+
+exports.searchProducts = async (req, res) => {
+    const searchKeyword = req.params.name ? {
+        name: {
+            $regex: req.params.name,
+            $options: 'i'
+        }
+    } : {}
+
+    const products = await Product.find({...searchKeyword});
+    if(!products) {
+        res.status(500).json({
+            success: false
+        })
+    }
+    res.send(products);
+}
